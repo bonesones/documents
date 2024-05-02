@@ -1,0 +1,180 @@
+body {
+  margin: 0;
+  overflow-y: hidden;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/src/assets/fonts/Montserrat-Bold.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/src/assets/fonts/Montserrat-Medium.ttf");
+  font-weight: 500;
+}
+
+
+.editor-class {
+  width: 600px;
+  height: 800px;
+  background-color: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  word-break: break-all;
+}
+
+.wrapper-class {
+  background-color: rgba(0, 0 , 0, .2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toolbar-class {
+  background-color: rgb(42, 87, 154);
+  width: 100%;
+  padding-left: 2rem;
+}
+
+.rdw-option-wrapper {
+  background-color: inherit;
+  border: none;
+}
+
+.rdw-option-wrapper:hover {
+  box-shadow: none;
+}
+
+.rdw-option-active {
+  box-shadow: none;
+  background-color: rgb(127, 127, 255);
+}
+
+.app-header {
+  font-family: "Montserrat";
+  font-weight: 700;
+  color: black;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 0;
+}
+
+
+.create-doc {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.create-doc__btn {
+  height: 300px;
+  font-size: 50px;
+  font-weight: 300;
+  background-color: white;
+  box-shadow: 1px 4px 18px -2px rgba(0,0,0,0.75);
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.create-doc__description {
+  color: black;
+  font-family: "Montserrat";
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.main-block {
+ display: flex;
+ gap: 5rem;
+ justify-content: center;
+ height: 334px;
+
+}
+
+html {
+  height: 90vh;
+}
+
+body {
+  height: 100%;
+}
+
+#root {
+ height: 100%; 
+}
+
+.main {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5rem;
+}
+
+
+.docs-element {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  gap: 1rem;
+  margin: 1rem;
+  padding: 10px 20px 5px 20px;
+  width: 300px;
+  box-shadow: 1px 4px 18px -2px rgba(0,0,0,0.2);
+  height: 66px;
+}
+
+.docs_saved {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  overflow-y: auto;
+  width: 500px;
+}
+
+.docs-element__title {
+  font-family: "Montserrat";
+  font-weight: 500;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.document-card-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove-icon:hover {
+  fill: red;
+  cursor: pointer;
+}
+
+.edit-icon:hover {
+  fill: brown;
+  cursor: pointer;
+}
+
+.submit-icon:hover {
+  fill: green;
+  cursor: pointer;
+}
+
+.docs-element__title_edit {
+  border: none;
+  font-size: 16px;
+  width: 100%;
+  padding: 0;
+}
+
+
+.docs-element__title_edit:focus-visible {
+  outline: none;
+}
