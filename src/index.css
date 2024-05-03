@@ -1,6 +1,7 @@
 body {
   margin: 0;
   overflow-y: hidden;
+  background-color: gray;
 }
 
 @font-face {
@@ -177,4 +178,74 @@ body {
 
 .docs-element__title_edit:focus-visible {
   outline: none;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  width: fit-content;
+  font-family: "Montserrat";
+}
+
+.auth-form__input {
+  width: 350px;
+  height: 40px;
+  border-radius: 5px;
+  border-width: .1px;
+  font-size: 18px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.auth-form__input:focus {
+  outline: none;
+}
+
+.auth-form__input_submit {
+  background-color: rgb(53, 116, 211);
+  color: white;
+  border: 0;
+  cursor: pointer;
+}
+
+.auth-form__another {
+  color: black;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.auth-form-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-form__label {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: red;
+  place-self: flex-start;
+}
+
+.auth-form__input-wrapper {
+  display: flex;
+  flex-direction: column;
 }

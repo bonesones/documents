@@ -12,12 +12,17 @@ const userSlice = createSlice({
         }
     },
     reducers: {
-        loginUser(username, password) {
-             console.log('hello')
+        getUserData(state, action) {
+            return {
+                user: {
+                    username: action.payload.username,
+                    is_auth: true
+                }
+            }
         }
     }
 })
 
-export const { loginUser } = userSlice.actions
+export const { getUserData } = userSlice.actions
 
 export default userSlice.reducer

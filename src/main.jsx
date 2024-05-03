@@ -5,18 +5,39 @@ import Document from './Document.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './Home.jsx'
-import { Provider } from "react-redux"
+import { Provider, useSelector } from "react-redux"
 import store from './store/index.js'
+import Protected from './components/Protected.jsx'
+import Login from './pages/logIn.jsx'
+import Register from './pages/register.jsx'
+
+
+const isAuthed = Boolean(localStorage.getItem('token'))
+console.log(isAuthed)
 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Home />,
+        element:
+            <Protected isSignedIn={true}> 
+              <Home />
+            </Protected>
     }, 
     {
         path: "documents/:documentId",
-        element: <Document />
+        element: 
+            <Protected isSignedIn={isAuthed}>
+                <Document />
+            </Protected>
+    },
+    {
+        path: "login",
+        element: <Login />
+    },
+    {
+        path: "register",
+        element: <Register />
     }
 ])
 
