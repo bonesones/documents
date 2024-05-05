@@ -7,17 +7,46 @@ import { addDocument } from "./store/documentSlice"
 import { useEffect } from "react";
 import axios from "axios"
 
+export const updateDocuments = async function(setDocuments) {
+    try {
+        const response = await axios.get('http://localhost:5000/auth/getDocuments', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                Username: localStorage.getItem('username')
+            },
+        });
+        const data = await response.data;
+        localStorage.setItem('documents', JSON.stringify(data.documents))
+        setDocuments(data.documents)
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 export default function Home() {
 
-    const documents = useSelector(state => state.documents.documents)
-    const dispatch = useDispatch() 
+    const user = useSelector(state => state.user.user)
 
-    const addFile = () => dispatch(addDocument())
+
+    const [documents, setDocuments] = useState(JSON.parse(localStorage.getItem('documents')))
+
+
+    const dispatch = useDispatch()
+    
+    const addFile = async () => {
+        try {
+            const result = await axios.post("http://localhost:5000/auth/addDocument", {
+                username: localStorage.getItem('username')
+            })
+
+            updateDocuments(setDocuments)
+        } catch(e) {
+            console.log(e)
+        }
+    }
 
     useEffect(() => {
-        if(documents.length === 0) {     
-            addFile();
-        }
+        
     }, [])
 
 
@@ -31,9 +60,12 @@ export default function Home() {
                 </div>
                 <div className="docs_saved">
                     {
+                        
                         documents?.map(doc => {
-                            return <SavedDoc key={doc.id} id={doc.id} title={doc.title} />
-                        }) 
+                            let document = JSON.parse(doc);
+                            return <SavedDoc key={document.id} id={document.id} title={document.title} saveDocument={setDocuments} />
+                        })
+                        
                     }
                 </div>
             </div>

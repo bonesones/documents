@@ -15,8 +15,9 @@ function Document() {
   const { documentId } = useParams();
   const document = documents.find(({ id }) => id === Number(documentId))
 
+
   const [editorState, setEditorState] = useState(
-    () => EditorState.createWithContent(convertFromRaw(document.data))
+    () => EditorState.createWithContent(convertFromRaw(document.document))
   )
 
   const dispatch = useDispatch();

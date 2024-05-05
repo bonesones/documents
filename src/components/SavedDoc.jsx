@@ -4,10 +4,12 @@ import { useDispatch } from "react-redux"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useRef } from "react"
+import axios from "axios"
+import { updateDocuments } from "../Home"
 
 
 
-export default function SavedDoc({ title, id }) {
+export default function SavedDoc({ title, id, saveDocument }) {
 
     const documents = useSelector((state) => state.documents.documents)
     const submitRef = useRef(null)
@@ -32,9 +34,21 @@ export default function SavedDoc({ title, id }) {
         }
     }
 
-    const handleSaveTitle = function() {
-        dispatch(changeDocumentTitle({id: id, title: inputValue}))
-        setIsEditingTitle(state => !state)
+    const handleSaveTitle = async function() {
+        try {
+            const response = await axios.post('http://localhost:5000/auth/changeTitle', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
+                id: id,
+                title: inputValue,
+                username: localStorage.getItem('username')
+            })
+
+            updateDocuments(saveDocument)
+        } catch(e) {
+            console.log(e)
+        }
     }
  
     const handleChangeInput = function(e) {

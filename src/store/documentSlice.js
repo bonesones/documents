@@ -11,9 +11,7 @@ const findDocument = function(array, value) {
 const documentSlice = createSlice({
     name: 'documents',
     initialState: {
-        documents: [
-            
-        ]
+        documents: localStorage.getItem('documents') ? JSON.parse(localStorage.getItem('documents')) : []
     },
     reducers: {
         addDocument(state, action) {

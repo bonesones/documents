@@ -12,22 +12,18 @@ import Login from './pages/logIn.jsx'
 import Register from './pages/register.jsx'
 
 
-const isAuthed = Boolean(localStorage.getItem('token'))
-console.log(isAuthed)
-
-
 const router = createBrowserRouter([
     {
         path: "/",
         element:
-            <Protected isSignedIn={true}> 
+            <Protected> 
               <Home />
             </Protected>
     }, 
     {
         path: "documents/:documentId",
         element: 
-            <Protected isSignedIn={isAuthed}>
+            <Protected>
                 <Document />
             </Protected>
     },

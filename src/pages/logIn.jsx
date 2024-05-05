@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, redirect, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { getUserData } from "../store/userSlice";
-import { useDispatch } from "react-redux";
+import { fetchUser } from "../store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Login() {
 
@@ -24,25 +24,16 @@ export default function Login() {
     const handleAuthError = function() {
         setAuthError(true)
     }
+    
+    const user = useSelector(state => state.user.user)
 
-    const loginUser = function(data) {
-        try {
-            axios.post('http://localhost:5000/auth/login', {
-                username: data.username,
-                password: data.password
-            }).then(res => {
-                localStorage.setItem('token', res.data.token)
-                setAuthError(false)
-                navigate('/')
-                reset()
-            }).catch(e => {
-                if(e?.response?.status === 403) {
-                    handleAuthError()
-                }
-            })
-        } catch(e) {
-            console.log(e)
-        }
+    const loginUser = async function(data) {  
+       await dispatch(fetchUser({
+            username: data.username,
+            password: data.password
+        }))
+        reset()
+        navigate('/')
     }
 
     
