@@ -32,6 +32,9 @@ const documentSlice = createSlice({
                 state.documents = newDocuments
             }
         },
+        updateDocument(state, acition) {
+
+        },
         editDocument(state, action) {
             const document = findDocument(state.documents, action.payload.id)
             if(document) {
@@ -43,6 +46,9 @@ const documentSlice = createSlice({
             if(document && document.title !== action.payload.title) {
                 document.title = action.payload.title
             }
+        }
+        saveDocument(state, action) {
+
         }
 
         

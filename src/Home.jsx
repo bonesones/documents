@@ -7,7 +7,7 @@ import { addDocument } from "./store/documentSlice"
 import { useEffect } from "react";
 import axios from "axios"
 
-export const updateDocuments = async function(setDocuments) {
+export const updateDocuments = async function() {
     try {
         const response = await axios.get('http://localhost:5000/auth/getDocuments', {
             headers: {

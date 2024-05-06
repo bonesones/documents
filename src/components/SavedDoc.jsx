@@ -6,21 +6,33 @@ import { useSelector } from "react-redux"
 import { useRef } from "react"
 import axios from "axios"
 import { updateDocuments } from "../Home"
+import { server } from "../config"
+import { useCallback } from "react"
+import { useEffect } from "react"
 
 
 
 export default function SavedDoc({ title, id, saveDocument }) {
-
-    const documents = useSelector((state) => state.documents.documents)
+    
     const submitRef = useRef(null)
 
     const [isEditingTitle, setIsEditingTitle] = useState(false)
     const [inputValue, setInputValue] = useState(title)
 
-    const dispatch = useDispatch()
+    const handleRemove = async () => {
+        try {
+            const response = await axios.post(`${server}/auth/removeDocument`, {
+                username: localStorage.getItem('username'),
+                id: id
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            await updateDocuments(saveDocument)
+        } catch(e) {
 
-    const handleRemove = (id) => {
-        dispatch(removeDocument(id))
+        }
     }
 
     const handleEdit = function() {
@@ -36,20 +48,29 @@ export default function SavedDoc({ title, id, saveDocument }) {
 
     const handleSaveTitle = async function() {
         try {
-            const response = await axios.post('http://localhost:5000/auth/changeTitle', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                },
+            const response = await axios.post('http://localhost:5000/auth/changeTitle',{
                 id: id,
-                title: inputValue,
+                newTitle: inputValue,
                 username: localStorage.getItem('username')
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
             })
-
-            updateDocuments(saveDocument)
+            await updateDocuments(saveDocument)
+            handleEdit()
         } catch(e) {
             console.log(e)
         }
     }
+
+    const handleEnterUp = async (e) => {
+        if(e.key === 'Enter') {
+            await handleSaveTitle()
+        }
+    }
+
+    
  
     const handleChangeInput = function(e) {
         setInputValue(e.target.value)
@@ -66,6 +87,7 @@ export default function SavedDoc({ title, id, saveDocument }) {
                                value={inputValue}
                                onChange={(e) => handleChangeInput(e)} 
                                onBlur={(e) => handleFocusOut(e)}
+                               onKeyUp={(e) => handleEnterUp(e)}
                                autoFocus
                                 /> 
                     </div>

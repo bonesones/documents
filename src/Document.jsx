@@ -9,12 +9,14 @@ import { editDocument } from "./store/documentSlice";
 import { asBlob } from "html-docx-js-typescript"
 import { saveAs } from 'file-saver'
 import { stateToHTML } from "draft-js-export-html"
+import axios from "axios";
+import { server } from "./config";
 
 function Document() {
   const documents = useSelector(state => state.documents.documents)
+  const parsedDocuments = documents.map(doc => JSON.parse(doc))
   const { documentId } = useParams();
-  const document = documents.find(({ id }) => id === Number(documentId))
-
+  const document = parsedDocuments.find(({ id }) => id === documentId)
 
   const [editorState, setEditorState] = useState(
     () => EditorState.createWithContent(convertFromRaw(document.document))
@@ -22,8 +24,16 @@ function Document() {
 
   const dispatch = useDispatch();
 
-  const handleSave = function(data, id) {
-    dispatch(editDocument({ id: Number(id), data: convertToRaw(data.getCurrentContent()) }))
+  const handleSave = async function() {
+    await axios.post(`${server}/auth/saveDocument`, {
+      document: convertToRaw(editorState.getCurrentContent()),
+      username: localStorage.getItem('username'),
+      id: documentId
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
   }
 
   const handleDownload = async function(data) {
