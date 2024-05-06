@@ -3,9 +3,10 @@ import { useState } from "react";
 import { EditorState } from "draft-js"
 import SavedDoc from "./components/SavedDoc";
 import { useSelector, useDispatch } from "react-redux"
-import { addDocument } from "./store/documentSlice"
+import { addDocument, initDocuments, saveDocument } from "./store/documentSlice"
 import { useEffect } from "react";
 import axios from "axios"
+import store from "./store/index"
 
 export const updateDocuments = async function() {
     try {
@@ -17,38 +18,47 @@ export const updateDocuments = async function() {
         });
         const data = await response.data;
         localStorage.setItem('documents', JSON.stringify(data.documents))
-        setDocuments(data.documents)
+        console.log('updated')
+        store.dispatch(saveDocument(data.documents))
     } catch(e) {
         console.log(e)
     }
 }
+
 
 export default function Home() {
 
     const user = useSelector(state => state.user.user)
 
 
-    const [documents, setDocuments] = useState(JSON.parse(localStorage.getItem('documents')))
+    const documents = useSelector(state => state.documents.documents)
 
 
     const dispatch = useDispatch()
     
+    useEffect(() => {
+        dispatch(initDocuments())
+    }, [localStorage.getItem('document')])
+
+    useEffect(() => {
+        const htmlTag = document.querySelector('html')
+        if(!htmlTag.classList.contains('home')) {
+            htmlTag.classList.add('home');
+            htmlTag.classList.remove('document')
+        }
+    }, [])
+
     const addFile = async () => {
         try {
             const result = await axios.post("http://localhost:5000/auth/addDocument", {
                 username: localStorage.getItem('username')
             })
 
-            updateDocuments(setDocuments)
+            updateDocuments()
         } catch(e) {
             console.log(e)
         }
     }
-
-    useEffect(() => {
-        
-    }, [])
-
 
     return (
         <div className="main">
@@ -63,7 +73,7 @@ export default function Home() {
                         
                         documents?.map(doc => {
                             let document = JSON.parse(doc);
-                            return <SavedDoc key={document.id} id={document.id} title={document.title} saveDocument={setDocuments} />
+                            return <SavedDoc key={document.id} id={document.id} title={document.title} />
                         })
                         
                     }

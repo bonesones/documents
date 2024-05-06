@@ -14,6 +14,11 @@ const documentSlice = createSlice({
         documents: localStorage.getItem('documents') ? JSON.parse(localStorage.getItem('documents')) : []
     },
     reducers: {
+        initDocuments () {
+            return {
+                documents: JSON.parse(localStorage.getItem('documents'))
+            }
+        },
         addDocument(state, action) {
             const editorState = EditorState.createEmpty();
             const rawState = convertToRaw(editorState.getCurrentContent());
@@ -46,15 +51,18 @@ const documentSlice = createSlice({
             if(document && document.title !== action.payload.title) {
                 document.title = action.payload.title
             }
-        }
+        },
         saveDocument(state, action) {
-
+            console.log('worked!!!!!')
+            return {
+                documents: action.payload
+            }
         }
 
         
     }
 })
 
-export const { addDocument, removeDocument, editDocument, changeDocumentTitle } = documentSlice.actions
+export const { initDocuments, addDocument, removeDocument, editDocument, changeDocumentTitle, saveDocument } = documentSlice.actions
 
 export default documentSlice.reducer

@@ -28,12 +28,18 @@ export default function Login() {
     const user = useSelector(state => state.user.user)
 
     const loginUser = async function(data) {  
-       await dispatch(fetchUser({
-            username: data.username,
-            password: data.password
-        }))
-        reset()
-        navigate('/')
+        try {
+            await dispatch(fetchUser({
+                username: data.username,
+                password: data.password
+            }))
+            reset()
+            setAuthError(false)
+            navigate('/')
+        } catch(e) {
+            console.log(e);
+            setAuthError(true)
+        }
     }
 
     

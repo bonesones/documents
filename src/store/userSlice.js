@@ -2,16 +2,23 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import store from "./index"
+import { initDocuments } from "./documentSlice"
+import { server } from "../config"
 
 export const fetchUser = createAsyncThunk(
     'user/fetchByUsername',
     async (data, thunkAPI) => {
-        const response = await axios.post('http://localhost:5000/auth/login', {
-            username: data.username,
-            password: data.password
-        });
-        const jsonData = response;
-        return jsonData.data
+        try {
+            const response = await axios.post(`${server}/auth/login`, {
+                username: data.username,
+                password: data.password
+            });
+            const jsonData = response;
+            return jsonData.data
+        } catch(e) {
+            console.log(e)
+        }
     }
 )
 
@@ -32,7 +39,6 @@ const userSlice = createSlice({
             .addCase(fetchUser.rejected, (state, action) => {
                 state.error = action.error
                 state.status = "rejected"
-                console.log(state.error)
             })
             .addCase(fetchUser.pending, (state) => {
                 state.error = null
@@ -43,6 +49,7 @@ const userSlice = createSlice({
                 const { token, authorized, username, documents } = action.payload;
                 state.error = null;
                 state.status = "fulfilled";
+                console.log(state.status)
                 
                 localStorage.setItem('token', token);
                 localStorage.setItem('is_authorized', authorized)

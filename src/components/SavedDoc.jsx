@@ -12,7 +12,7 @@ import { useEffect } from "react"
 
 
 
-export default function SavedDoc({ title, id, saveDocument }) {
+export default function SavedDoc({ title, id }) {
     
     const submitRef = useRef(null)
 
@@ -29,9 +29,9 @@ export default function SavedDoc({ title, id, saveDocument }) {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             })
-            await updateDocuments(saveDocument)
+            await updateDocuments()
         } catch(e) {
-
+            console.log(e)
         }
     }
 
@@ -57,7 +57,7 @@ export default function SavedDoc({ title, id, saveDocument }) {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             })
-            await updateDocuments(saveDocument)
+            await updateDocuments()
             handleEdit()
         } catch(e) {
             console.log(e)

@@ -1,10 +1,16 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import validator from "validator"
 import { useForm } from "react-hook-form"
+import { server } from "../config"
+import { useDispatch } from "react-redux"
+import { fetchUser } from "../store/userSlice"
 
 export default function Register() {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const {
         register,
@@ -16,14 +22,23 @@ export default function Register() {
         reset
     } = useForm()
 
-    const registerUser = function(data) {
-        axios.post("http://localhost:5000/auth/registration", {
-            username: data.username,
-            password: data.password
-        }).then(res => {
-            console.log(res.data)
+    const registerUser = async function(data) {
+        try {
+            await axios.post(`${server}/auth/registration`, {
+                username: data.username,
+                password: data.password
+            })
+
+            await dispatch(fetchUser({
+                username: data.username,
+                password: data.password
+            }))
             reset()
-        })
+            navigate('/')
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 
     
