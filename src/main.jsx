@@ -12,7 +12,7 @@ import Login from './pages/logIn.jsx'
 import Register from './pages/register.jsx'
 
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
     {
         path: "/",
         element:
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
             </Protected>
     }, 
     {
-        path: "documents/:documentId",
+        path: "/documents/:documentId",
         element: 
             <Protected>
                 <Document />
@@ -36,6 +36,7 @@ const router = createBrowserRouter([
         element: <Register />
     }
 ])
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>

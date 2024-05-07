@@ -81,7 +81,7 @@ export default function SavedDoc({ title, id }) {
             {
                 isEditingTitle ? 
                     <div className="docs-element">
-                        <img src="/file-image.svg" width={35} />
+                        <img src="/file-image.svg" width={30} />
                         <input className="docs-element__title docs-element__title_edit" 
                                type="text" 
                                value={inputValue}
@@ -92,10 +92,14 @@ export default function SavedDoc({ title, id }) {
                                 /> 
                     </div>
                 :
-                    <Link to={'documents/' + id} className="docs-element">
-                        <img src="/file-image.svg" width={35} />
+                <>
+                     <Link to={'documents/' + id} className="docs-element">
+                        <img src="/file-image.svg" width={30} />
                         <p className="docs-element__title">{inputValue}</p> 
                     </Link>
+                </>
+
+                    
             }
             {
                 isEditingTitle ? 

@@ -53,7 +53,6 @@ const documentSlice = createSlice({
             }
         },
         saveDocument(state, action) {
-            console.log('worked!!!!!')
             return {
                 documents: action.payload
             }

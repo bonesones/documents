@@ -52,12 +52,16 @@ export default function Register() {
                         <input
                             {...register('username', {
                                 required: true,
+                                minLength: {
+                                    value: 4,
+                                    message: "Минимум 4 символа!"
+                                }
 
                             })}
                             className="auth-form__input" 
                         />
                     </label>
-                    <span className="error">{errors?.username && "Логин не может быть пустым!"}</span>
+                    <span className="error">{errors?.username && (errors.username.message || "Логин не может быть пустым")}</span>
                 </div>
                 <div className="auth-form__input-wrapper">
                     <label className="auth-form__label">

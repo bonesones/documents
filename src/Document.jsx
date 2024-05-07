@@ -24,7 +24,6 @@ function Document() {
   const { documentId } = useParams();
   const editorRef = useRef(null)
   const document = parsedDocuments.find(({ id }) => id === documentId)
-
   useEffect(() => {
     window.document.querySelector('html').classList.remove('home')
     window.document.querySelector('html').classList.add('document')
@@ -37,8 +36,6 @@ function Document() {
   const dispatch = useDispatch();
 
   const handleSave = async function() {
-    console.log('worked!')
-
     try {
       await axios.post(`${server}/auth/saveDocument`, {
         document: convertToRaw(editorState.getCurrentContent()),
@@ -71,7 +68,7 @@ function Document() {
 
   const SecondPanel = function() {
    return (
-    <div>
+    <div className="top-panel">
       <button type="button" onClick={() => handleSave()}>
         Сохранить
       </button>
@@ -85,6 +82,7 @@ function Document() {
 
   return (
   <>
+    <SecondPanel />
     <Editor
         editorState={editorState}
         ref={editorRef}

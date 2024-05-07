@@ -8,7 +8,7 @@ import { server } from "../config"
 
 export const fetchUser = createAsyncThunk(
     'user/fetchByUsername',
-    async (data, thunkAPI) => {
+    async (data, { rejectWithValue }) => {
         try {
             const response = await axios.post(`${server}/auth/login`, {
                 username: data.username,
@@ -18,6 +18,7 @@ export const fetchUser = createAsyncThunk(
             return jsonData.data
         } catch(e) {
             console.log(e)
+            return rejectWithValue('network')
         }
     }
 )
@@ -39,17 +40,20 @@ const userSlice = createSlice({
             .addCase(fetchUser.rejected, (state, action) => {
                 state.error = action.error
                 state.status = "rejected"
+                
             })
             .addCase(fetchUser.pending, (state) => {
                 state.error = null
                 state.status = "pending"
-                console.log(state.status)
+            
             })
             .addCase(fetchUser.fulfilled, (state, action) => {
+                if(action.payload === "server error") {
+                    
+                }
                 const { token, authorized, username, documents } = action.payload;
                 state.error = null;
                 state.status = "fulfilled";
-                console.log(state.status)
                 
                 localStorage.setItem('token', token);
                 localStorage.setItem('is_authorized', authorized)
