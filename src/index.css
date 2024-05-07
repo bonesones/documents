@@ -15,6 +15,72 @@ body {
   font-weight: 500;
 }
 
+.ask-modal {
+  position: fixed;
+  top: 50%;
+  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(42, 87, 154);
+  width: 500px;
+  height: 120px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0 , 0, .15);
+  z-index: 9;
+}
+
+.ask-modal__title {
+  color: white;
+  font-family: "Montserrat";
+  text-align: center;
+  margin-top: 0;
+}
+
+.ask-modal-btn-block {
+  display: flex;
+  gap: 1rem;
+}
+
+.ask-modal__exit {
+  font-family: "Montserrat";
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.ask-modal__exit_save {
+  font-family: "Montserrat";
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.ask-modal__exit_save:active {
+  box-shadow: none;
+}
+
+.ask-modal__cancel {
+  background-color: inherit;
+  border: none;
+  color: white;
+  font-family: "Montserrat";
+  font-size: 16px;
+  cursor: pointer;
+}
 
 .editor-class {
   width: 600px;
@@ -46,7 +112,8 @@ body {
   width: 100%;
   padding-left: 2rem;
   position: fixed;
-  top: 30px
+  top: 34px;
+  z-index: 7;
 }
 
 
@@ -91,11 +158,11 @@ body {
 }
 
 .app__logout-btn {
-  background-color: rgb(42, 87, 154);
+  background-color: white;
   box-shadow: 0px 0px 4px 2px rgba(0, 0 , 0, .25);
   height: fit-content;
   border: none;
-  color: white;
+  color: black;
   font-family: "Monsterrat";
   font-weight: 500;
   padding-left: 1rem;
@@ -182,7 +249,7 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 5rem;
+  gap: 2rem;
   width: 1000px;
   margin-left: auto;
   margin-right: auto;
@@ -201,7 +268,6 @@ body {
   display: flex;
   flex-direction: column;
   overflow-y:auto;
-  margin-bottom: 10rem;
   height: 100%;
 }
 
@@ -209,7 +275,7 @@ body {
 .docs_saved {
   width: 45%;
   overflow-y: hidden;
-  padding-bottom: 1rem;
+  padding-bottom: 5rem;
   background-color: rgb(42, 87, 154);
 }
 
@@ -225,13 +291,43 @@ body {
   height: 30px;
   display: flex;
   align-items: center;
+  background-color: rgb(42, 87, 154);
+  width: 100%;
+  padding-left: 0rem;
+  padding-top: 5px;
+  z-index: 8;
 }
+
+.top-panel-actions {
+  padding-left: 1.3rem;
+  display: flex;
+  gap: 1.5rem;  
+}
+
 
 .document-card-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 1rem;
+}
+
+.top-panel__save-btn, .top-panel__download-btn, .top-panel__main-page  {
+  background-color: inherit;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-family: "Montserrat";
+  cursor: pointer;
+}
+
+.document__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Montserrat";
+  color: white;
 }
 
 .submit-icon {

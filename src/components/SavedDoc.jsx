@@ -88,6 +88,7 @@ export default function SavedDoc({ title, id }) {
                                onChange={(e) => handleChangeInput(e)} 
                                onBlur={(e) => handleFocusOut(e)}
                                onKeyUp={(e) => handleEnterUp(e)}
+                               maxLength={120}
                                autoFocus
                                 /> 
                     </div>
