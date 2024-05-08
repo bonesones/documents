@@ -15,15 +15,17 @@ const Protected = function({ children }) {
     console.log('renders')
 
     async function checkToken() {
+
         try {
             await axios.get(`${server}/auth/verify`, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             })
+            
             setRendreResult(children)
         } catch(e) {
-            console.log(e.message)
+            console.log(e)
             if(e.message === "Network Error") {
                 navigate('/error')
             } else {
