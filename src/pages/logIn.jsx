@@ -1,7 +1,6 @@
 import { useState } from "react"
-import { Link, redirect, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { fetchUser } from "../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "./Loading";

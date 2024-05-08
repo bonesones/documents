@@ -21,6 +21,7 @@ export default function Register() {
         getValues,
         reset
     } = useForm()
+    const [registerError, setRegisterError] = useState(false)
 
     const registerUser = async function(data) {
         try {
@@ -33,10 +34,14 @@ export default function Register() {
                 username: data.username,
                 password: data.password
             }))
+            setRegisterError(false)
             reset()
             navigate('/')
         } catch (e) {
             console.log(e)
+            if(e.response.status === 400){
+                setRegisterError(e.response.data.message)
+            }
         }
 
     }
@@ -102,6 +107,7 @@ export default function Register() {
                 <input className="auth-form__input auth-form__input_submit" 
                         type="submit" 
                         value={"Зарегистрироваться"}/>
+                <span className="error">{registerError && registerError}</span>
                 <Link to={"/login"} className="auth-form__another">
                     Есть аккаунт? Войти
                 </Link>
