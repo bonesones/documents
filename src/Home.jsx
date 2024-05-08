@@ -8,13 +8,13 @@ import { useEffect } from "react";
 import axios from "axios"
 import store from "./store/index"
 import { router } from "./main"
+import { server } from "./config";
 
 export const updateDocuments = async function() {
     try {
-        const response = await axios.get('http://localhost:5000/auth/getDocuments', {
+        const response = await axios.get(`${server}/auth/getDocuments`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
-                Username: localStorage.getItem('username')
             },
         });
         const data = await response.data;
@@ -51,8 +51,10 @@ export default function Home() {
 
     const addFile = async () => {
         try {
-            const result = await axios.post("http://localhost:5000/auth/addDocument", {
-                username: localStorage.getItem('username')
+            const result = await axios.post(`${server}/auth/addDocument`, {}, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
             })
             await updateDocuments()
         } catch(e) {

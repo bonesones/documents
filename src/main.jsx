@@ -1,16 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import Document from './Document.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './Home.jsx'
-import { Provider, useSelector } from "react-redux"
+import { Provider } from "react-redux"
 import store from './store/index.js'
 import Protected from './components/Protected.jsx'
 import Login from './pages/logIn.jsx'
 import Register from './pages/register.jsx'
+import ErrorPage from './pages/errorPage.jsx'
 
+console.log('guyat')
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
     {
         path: "register",
         element: <Register />
+    },
+    {
+        path: "error",
+        element: <ErrorPage />
     }
 ])
 

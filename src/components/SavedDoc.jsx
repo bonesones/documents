@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom"
-import { changeDocumentTitle, removeDocument } from "../store/documentSlice"
-import { useDispatch } from "react-redux"
 import { useState } from "react"
-import { useSelector } from "react-redux"
 import { useRef } from "react"
 import axios from "axios"
 import { updateDocuments } from "../Home"
 import { server } from "../config"
-import { useCallback } from "react"
-import { useEffect } from "react"
 
 
 
@@ -22,7 +17,6 @@ export default function SavedDoc({ title, id }) {
     const handleRemove = async () => {
         try {
             const response = await axios.post(`${server}/auth/removeDocument`, {
-                username: localStorage.getItem('username'),
                 id: id
             }, {
                 headers: {
@@ -48,10 +42,9 @@ export default function SavedDoc({ title, id }) {
 
     const handleSaveTitle = async function() {
         try {
-            const response = await axios.post('http://localhost:5000/auth/changeTitle',{
+            const response = await axios.post(`${server}/auth/changeTitle`,{
                 id: id,
                 newTitle: inputValue,
-                username: localStorage.getItem('username')
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,

@@ -43,7 +43,6 @@ function Document() {
     try {
       await axios.post(`${server}/auth/saveDocument`, {
         document: convertToRaw(editorState.getCurrentContent()),
-        username: localStorage.getItem('username'),
         id: documentId
       }, {
         headers: {
