@@ -11,7 +11,6 @@ import Login from './pages/logIn.jsx'
 import Register from './pages/register.jsx'
 import ErrorPage from './pages/errorPage.jsx'
 
-console.log('guyat')
 
 export const router = createBrowserRouter([
     {

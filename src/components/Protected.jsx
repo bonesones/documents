@@ -12,10 +12,7 @@ const Protected = function({ children }) {
     const navigate = useNavigate()
     const [renderResult, setRendreResult] = useState(<Loading />)
 
-    console.log('renders')
-
     async function checkToken() {
-
         try {
             await axios.get(`${server}/auth/verify`, {
                 headers: {
