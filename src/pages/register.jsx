@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { server } from "../config"
 import { useDispatch } from "react-redux"
 import { fetchUser } from "../store/userSlice"
+import Loading from "./Loading"
 
 export default function Register() {
 
@@ -21,9 +22,11 @@ export default function Register() {
         getValues,
         reset
     } = useForm()
+    const [isLoading, setLoading] = useState(false)
     const [registerError, setRegisterError] = useState(false)
 
     const registerUser = async function(data) {
+        setLoading(true)
         try {
             await axios.post(`${server}/auth/registration`, {
                 username: data.username,
@@ -34,11 +37,14 @@ export default function Register() {
                 username: data.username,
                 password: data.password
             }))
+            console.log('yep')
             setRegisterError(false)
+            setLoading(false)
             reset()
             navigate('/')
         } catch (e) {
             console.log(e)
+            setLoading(false)
             if(e.response.status === 400){
                 setRegisterError(e.response.data.message)
             }
@@ -47,8 +53,11 @@ export default function Register() {
     }
 
     
-    return (
-        <div className="auth-form-wrapper">
+    if(isLoading) {
+        return <Loading />
+    } else {
+        return (
+            <div className="auth-form-wrapper">
             <form className="auth-form" method="post" onSubmit={handleSubmit(registerUser)}>
                 <h1 className="auth-form__title">Регистрация</h1>
                 <div className="auth-form__input-wrapper">
@@ -107,11 +116,13 @@ export default function Register() {
                 <input className="auth-form__input auth-form__input_submit" 
                         type="submit" 
                         value={"Зарегистрироваться"}/>
-                <span className="error">{registerError && registerError}</span>
+                <span className="error" style={{ placeSelf: "center" }}>{registerError && registerError}</span>
                 <Link to={"/login"} className="auth-form__another">
                     Есть аккаунт? Войти
                 </Link>
             </form>
         </div>
-    )
+        )
+    }
+    
 }
