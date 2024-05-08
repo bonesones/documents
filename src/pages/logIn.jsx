@@ -17,33 +17,33 @@ export default function Login() {
         reset
     } = useForm()
 
-    const [authError, setAuthError] = useState(false)
+
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
-    const handleAuthError = function() {
-        setAuthError(true)
-    }
     
     const user = useSelector(state => state.user.user)
+    const authError = useSelector(state => state.user.error)
+    const loginUser = function(data) {  
+        setLoading(true)
 
-    const loginUser = async function(data) {  
-        try {
-            setLoading(true)
-            await dispatch(fetchUser({
-                username: data.username,
-                password: data.password
-            }))
+        dispatch(fetchUser({
+            username: data.username,
+            password: data.password
+        })).then(res => {
             setLoading(false)
-            reset()
-            setAuthError(false)
-            navigate('/')
-        } catch(e) {
-            setLoading(false)
-            setAuthError(true)
-        }
+            if(!res.error) {
+                reset();
+                navigate('/')
+            }
+            if(res.payload === "Нет связи с сервером") {
+                reset();
+                navigate("/error")
+            }
+        })
+   
     }
 
     
@@ -51,7 +51,7 @@ export default function Login() {
         return <Loading />
     } else {
         return (
-            <div className="auth-form-wrapper">
+            <div className="auth-form-wrapper">                   
                     <form className="auth-form" method="post" onSubmit={handleSubmit(loginUser)}>
                         <h1 className="auth-form__title">Вход</h1>
                         <div className="auth-form__input-wrapper">
@@ -83,7 +83,7 @@ export default function Login() {
                         <input className="auth-form__input auth-form__input_submit" 
                                 type="submit" 
                                 value={"Войти"}/>
-                        {authError && <span className="error" style={{ placeSelf: "center" }}>Неверный логин или пароль</span>}
+                        {authError && <span className="error" style={{ placeSelf: "center" }}>{authError}</span>}
                         <Link to={"/register"} className="auth-form__another">
                             Нет аккаунта? Зарегистрироваться
                         </Link>

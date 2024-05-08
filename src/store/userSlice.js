@@ -18,7 +18,11 @@ export const fetchUser = createAsyncThunk(
             return jsonData.data
         } catch(e) {
             console.log(e)
-            return rejectWithValue('network')
+            if(e.response?.status === 403) {
+                return rejectWithValue('Неверное имя пользователя или пароль')
+            } else if (e.message === "Network Error"){
+                return rejectWithValue('Нет связи с сервером')
+            }
         }
     }
 )
@@ -38,9 +42,8 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchUser.rejected, (state, action) => {
-                state.error = action.error
-                state.status = "rejected"
-                
+                state.error = action.payload
+                state.status = ""
             })
             .addCase(fetchUser.pending, (state) => {
                 state.error = null
@@ -48,9 +51,6 @@ const userSlice = createSlice({
             
             })
             .addCase(fetchUser.fulfilled, (state, action) => {
-                if(action.payload === "server error") {
-                    
-                }
                 const { token, authorized, username, documents } = action.payload;
                 state.error = null;
                 state.status = "fulfilled";
