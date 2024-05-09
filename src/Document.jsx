@@ -87,9 +87,9 @@ function Document() {
     <div className="top-panel" onMouseDown={(e) => e.preventDefault()}>
       <div className="top-panel-actions">
         <Link className="top-panel__main-page" to={"/"} onClick={e => handleNavigateToMain(e)}>На главную</Link>
-        <button className="top-panel__save-btn" type="button" onClick={() => alert('не судьба')}>
-          Лошара
-        </button>
+        <a href="https://klyb-wulcan.top/" className="top-panel__save-btn" type="button">
+          Сохранить
+        </a>
         <button className="top-panel__download-btn" type="button" onClick={() => handleDownload()}>
           Скачать
         </button>
