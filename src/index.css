@@ -39,6 +39,17 @@ body {
   z-index: 9;
 }
 
+.error-404 {
+  color: white;
+  font-family: "Montserrat";
+  font-size: 46px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
 .ask-modal__title {
   color: white;
   font-family: "Montserrat";

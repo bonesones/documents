@@ -14,6 +14,14 @@ import ErrorPage from './pages/errorPage.jsx'
 
 export const router = createBrowserRouter([
     {
+        path: "*",
+        element: 
+            <h1 className='error-404'>
+                Ошибка 404<br />
+                Страница не существует
+            </h1>
+    },
+    {
         path: "/",
         element:
             <Protected> 
