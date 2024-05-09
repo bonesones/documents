@@ -88,7 +88,7 @@ function Document() {
       <div className="top-panel-actions">
         <Link className="top-panel__main-page" to={"/"} onClick={e => handleNavigateToMain(e)}>На главную</Link>
         <button className="top-panel__save-btn" type="button" onClick={() => handleSave()}>
-          Сохранить
+          Лошара
         </button>
         <button className="top-panel__download-btn" type="button" onClick={() => handleDownload()}>
           Скачать
