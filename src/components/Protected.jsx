@@ -24,7 +24,7 @@ const Protected = function({ children }) {
         } catch(e) {
             console.log(e)
             if(e.message === "Network Error") {
-                navigate('/error')
+                setRendreResult(<ErrorPage />)
             } else {
                 navigate('/login')
             }
