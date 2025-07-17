@@ -22,8 +22,6 @@ export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
-    
-    const user = useSelector(state => state.user.user)
     const authError = useSelector(state => state.user.error)
     const loginUser = function(data) {  
         setLoading(true)
@@ -39,7 +37,7 @@ export default function Login() {
             }
             if(res.payload === "Нет связи с сервером") {
                 reset();
-                navigate("/error")
+                navigate("/")
             }
         })
    

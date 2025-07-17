@@ -37,7 +37,6 @@ export default function Register() {
                 username: data.username,
                 password: data.password
             }))
-            console.log('yep')
             setRegisterError(false)
             setLoading(false)
             reset()

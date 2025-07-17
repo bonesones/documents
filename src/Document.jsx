@@ -5,16 +5,13 @@ import toolbarOptions from "./tools/toolbar";
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { editDocument } from "./store/documentSlice";
 import { asBlob } from "html-docx-js-typescript"
 import { saveAs } from 'file-saver'
 import { stateToHTML } from "draft-js-export-html"
 import axios from "axios";
 import { server } from "./config";
-import store from "./store/index";
 import { updateDocuments } from "./Home";
 import { useEffect } from "react";
-import { useRef } from "react";
 import imageIcon from "./assets/image.svg"
 
 
@@ -36,9 +33,7 @@ function Document() {
   const [editorState, setEditorState] = useState(
     () => EditorState.createWithContent(convertFromRaw(document.document))
   )
-
-  const dispatch = useDispatch();
-
+  
   const handleSave = async function() {
     try {
       await axios.post(`${server}/auth/saveDocument`, {

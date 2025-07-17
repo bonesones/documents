@@ -40,9 +40,6 @@ export default function Home() {
         dispatch(initDocuments())
     }, [localStorage.getItem('document')])
 
-
-    const user = useSelector(state => state.user.user)
-
     const documents = useSelector(state => state.documents.documents)
 
     const dispatch = useDispatch()
