@@ -1,1 +1,1 @@
-export const server = "https://documents-editor.netlify.app"
+export const server = "https://documentsserver-bonesones-projects.vercel.app"
