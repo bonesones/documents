@@ -1,1 +1,1 @@
-export const server = "https://documents-server.onrender.com"
+export const server = "https://documents-editor.netlify.app"
